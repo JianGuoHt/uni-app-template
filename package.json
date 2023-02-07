@@ -2,19 +2,41 @@
   "name": "uni-app",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "author": "JianGuoHt",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "husky install",
+    "lint": "eslint --fix --ext .js,.vue ."
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.9.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
     "prettier": "^2.8.3",
     "vue-inset-loader": "^1.2.6"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "package.json": [
+      "prettier --write"
+    ],
+    "*.vue": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{scss,html}": [
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
   }
 }

@@ -1,4 +1,4 @@
-import { getUserInfo, userLoginOut } from "@/api/user.js"
+import { getUserInfo, userLoginOut } from '@/api/user.js';
 
 /**
  * 获取用户信息
@@ -6,10 +6,10 @@ import { getUserInfo, userLoginOut } from "@/api/user.js"
  */
 export function getUserInfos(callback = () => {}) {
   getUserInfo().then((res) => {
-    callback(res.data)
-    uni.setStorageSync("userinfo", res.data)
-    uni.setStorageSync("roleGroup", res.roleGroup)
-  })
+    callback(res.data);
+    uni.setStorageSync('userinfo', res.data);
+    uni.setStorageSync('roleGroup', res.roleGroup);
+  });
 }
 
 /**
@@ -18,17 +18,17 @@ export function getUserInfos(callback = () => {}) {
  */
 export function logout() {
   return userLoginOut().then(() => {
-    clearLoginInfo()
+    clearLoginInfo();
     uni.reLaunch({
-      url: "/pages/login/login"
-    })
-  })
+      url: '/pages/login/login',
+    });
+  });
 }
 
 /**
  * 清除登录信息
  */
 export function clearLoginInfo() {
-  uni.removeStorageSync("token")
-  uni.removeStorageSync("userinfo")
+  uni.removeStorageSync('token');
+  uni.removeStorageSync('userinfo');
 }

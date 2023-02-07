@@ -1,7 +1,7 @@
-import errorCode from "./errorCode"
-import { clearLoginInfo } from "./auth"
-import { formatDataByQuery } from "@/utils/index.js"
-import { getConfig } from "../config"
+import errorCode from './errorCode';
+import { clearLoginInfo } from './auth';
+import { formatDataByQuery } from '@/utils/index.js';
+import { getConfig } from '../config';
 
 /**
  * 网络请求
@@ -18,82 +18,82 @@ function request(
     data: null,
     method: null,
     header: {},
-    params: {}
-  }
+    params: {},
+  },
 ) {
   // 请求服务器地址
-  const baseUrl = params.url.match(/http:\/\/|https:\/\//g) ? "" : getConfig().BASE_URL
+  const baseUrl = params.url.match(/http:\/\/|https:\/\//g) ? '' : getConfig().BASE_URL;
   // 白名单（将不会配置鉴权信息"Authorization"）
-  const whiteList = ["/resetPasswords", "/applet/mobileLogin"]
+  const whiteList = ['/resetPasswords', '/applet/mobileLogin'];
   // method 的合法值
   const methods = {
-    options: "OPTIONS",
-    get: "GET",
-    head: "HEAD",
-    post: "POST",
-    put: "PUT",
-    delete: "DELETE",
-    trace: "TRACE",
-    connect: "CONNECT"
-  }
+    options: 'OPTIONS',
+    get: 'GET',
+    head: 'HEAD',
+    post: 'POST',
+    put: 'PUT',
+    delete: 'DELETE',
+    trace: 'TRACE',
+    connect: 'CONNECT',
+  };
   // 传入小写 自动转大写
-  const method = methods[params.method] || params.method
+  const method = methods[params.method] || params.method;
   // 获取token
-  const Authorization = wx.getStorageSync("token")
+  const Authorization = wx.getStorageSync('token');
   // 请求头
   let header = {
-    "content-type": "application/json",
+    'content-type': 'application/json',
     // 白名单列表中的接口不配置token
-    Authorization: whiteList.includes(params.url) ? "" : Authorization
-  }
+    Authorization: whiteList.includes(params.url) ? '' : Authorization,
+  };
 
   return new Promise((resolve, reject) => {
     uni.request({
-      url: baseUrl + params.url + (params.params ? formatDataByQuery(params.params) : ""),
+      url: baseUrl + params.url + (params.params ? formatDataByQuery(params.params) : ''),
       data: params.data,
       header: Object.assign(header, params.header),
       method,
-      dataType: "json",
-      responseType: "text",
+      dataType: 'json',
+      responseType: 'text',
       // 接口调用成功的回调函数
       success: (result) => {
         // 未设置状态码则默认成功状态
-        const code = result.data.code || result.statusCode || 200
+        const code = result.data.code || result.statusCode || 200;
         // 后台返回的错误信息
-        const backErr = result.data.msg || ""
+        const backErr = result.data.msg || '';
         // 是否为后台代码出错 （后台返回代码错误关键字正则）
-        const isCodeError = !backErr || !!backErr.match(/sql|java|error/gi)
+        const isCodeError = !backErr || !!backErr.match(/sql|java|error/gi);
         // 获取错误信息
-        const msg = errorCode[code] || (isCodeError ? errorCode["default"] : backErr)
+        const msg = errorCode[code] || (isCodeError ? errorCode['default'] : backErr);
         if (code === 401) {
           uni.showToast({
             title: msg,
-            icon: "error",
+            icon: 'error',
             complete() {
               // 清除登录信息
-              clearLoginInfo()
+              clearLoginInfo();
               // 转到登陆页面
               wx.reLaunch({
-                url: "/pages/login/login"
-              })
-            }
-          })
+                url: '/pages/login/login',
+              });
+            },
+          });
         } else if (code !== 200 && code !== 201) {
           uni.showToast({
-            icon: "error",
-            title: msg
-          })
-          reject(result.data)
+            icon: 'error',
+            title: msg,
+          });
+          reject(result.data);
         } else {
-          resolve(result.data)
+          resolve(result.data);
         }
       },
       // 接口调用失败的回调函数
       fail: (err) => {
-        reject(err)
-      }
-    })
-  })
+        reject(err);
+      },
+    });
+  });
 }
 
 /**
@@ -106,9 +106,9 @@ request.get = function get(url, data) {
   return this({
     url,
     data,
-    method: "GET"
-  })
-}
+    method: 'GET',
+  });
+};
 
 /**
  * post 请求
@@ -121,10 +121,10 @@ request.post = function get(url, data, params) {
   return this({
     url,
     data,
-    method: "POST",
-    params
-  })
-}
+    method: 'POST',
+    params,
+  });
+};
 
 /**
  * put 请求
@@ -137,9 +137,9 @@ request.put = function get(url, data, params) {
   return this({
     url,
     data,
-    method: "PUT",
-    params
-  })
-}
+    method: 'PUT',
+    params,
+  });
+};
 
-export default request
+export default request;

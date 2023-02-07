@@ -4,11 +4,11 @@
  * @returns
  */
 export function formatDataByQuery(params) {
-  const entriesCode = Object.entries(params)
-  const lengthNum = entriesCode.length
-  let query = "?"
+  const entriesCode = Object.entries(params);
+  const lengthNum = entriesCode.length;
+  let query = '?';
   entriesCode.forEach((item, index) => {
-    query += `${item[0]}=${item[1]}${index === lengthNum - 1 ? "" : "&"}`
-  })
-  return query
+    query += `${item[0]}=${item[1]}${index === lengthNum - 1 ? '' : '&'}`;
+  });
+  return query;
 }
