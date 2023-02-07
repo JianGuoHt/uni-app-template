@@ -39,7 +39,7 @@ function request(
   // 传入小写 自动转大写
   const method = methods[params.method] || params.method;
   // 获取token
-  const Authorization = wx.getStorageSync('token');
+  const Authorization = uni.getStorageSync('token');
   // 请求头
   let header = {
     'content-type': 'application/json',
@@ -73,7 +73,7 @@ function request(
               // 清除登录信息
               clearLoginInfo();
               // 转到登陆页面
-              wx.reLaunch({
+              uni.reLaunch({
                 url: '/pages/login/login',
               });
             },

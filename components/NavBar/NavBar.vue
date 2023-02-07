@@ -1,5 +1,5 @@
 <template>
-  <u-navbar leftText="返回" :title="title">
+  <u-navbar leftText="返回" :title="title" safeAreaInsetTop placeholder>
     <view class="u-nav-slot" slot="left">
       <u-icon name="arrow-left" size="19"></u-icon>
       <u-line direction="column" :hairline="false" length="16" margin="0 8px"></u-line>

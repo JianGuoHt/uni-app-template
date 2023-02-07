@@ -1,5 +1,14 @@
 # uni-app-template
 
+由于 uni-cli 有一些使用缺陷以及问题，所以采用 HBuild 创建项目；
+
+建议使用 vsCode 开发，HBuild 辅助开发（运行代码）；
+
+注意：
+
+1. 第一次打开项目仍然需要运行 pnpm install。
+2. 提交代码报错请查看 [commitlint](https://github.com/conventional-changelog/commitlint) 规范。
+
 # git commit
 
 | **类型** | **概念**                                               |

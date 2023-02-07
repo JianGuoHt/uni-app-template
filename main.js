@@ -19,3 +19,5 @@ function bootstrap() {
 bootstrap();
 Vue.config.productionTip = false;
 App.mpType = 'app';
+
+console.log(process.env);

@@ -1,6 +1,7 @@
 <template>
   <view>
     <NavBar title="测试"></NavBar>
+    <image src="/static/logo.png" mode="scaleToFill" />
   </view>
 </template>
 

@@ -2,6 +2,8 @@
 .local
 .output.js
 /node_modules/**
+/uni_modules/**
+/unpackage/**
 
 **/*.svg
 **/*.sh
